@@ -13,7 +13,9 @@ db.signals.remove({}, { multi: true }, (err, numRemoved) => {});
 loadFirstSignal();
 
 async function loadFirstSignal() {
-  const response = await fetch('', { headers: { 'auth-token': process.env.COTWO_API_KEY } });
+  const response = await fetch('https://api.co2signal.com/v1/latest?countryCode=DE', {
+    headers: { 'auth-token': process.env.COTWO_API_KEY },
+  });
   if (response.ok) {
     const resContent = await response.json();
     await insertSignal({
