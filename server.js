@@ -1,6 +1,8 @@
 const express = require('express');
-const app = express();
+const fetch = require('node-fetch');
 const Datastore = require('nedb');
+
+const app = express();
 
 const db = {
   signals: new Datastore({ filename: '.data/signals', autoload: true }),
