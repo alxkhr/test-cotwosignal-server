@@ -2,9 +2,9 @@
   "name": "test-cotwosignal-server",
   "version": "0.0.1",
   "description": "",
-  "main": "false",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,9 @@
     "url": "https://github.com/alxkhr/test-cotwosignal-server/issues"
   },
   "homepage": "https://github.com/alxkhr/test-cotwosignal-server#readme",
+  "engines": {
+    "node": "12.x"
+  },
   "dependencies": {
     "express": "^4.17.1"
   }
