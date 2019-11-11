@@ -44,7 +44,7 @@ async function insertSignal(doc) {
 
 async function getAllSignals(criteria) {
   return new Promise((resolve, reject) => {
-    db.signals.findOne(criteria, (err, firstDoc) => (err ? reject(err) : resolve(firstDoc)));
+    db.signals.find(criteria, (err, firstDoc) => (err ? reject(err) : resolve(firstDoc)));
   });
 }
 
