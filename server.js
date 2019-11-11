@@ -18,11 +18,7 @@ async function getAllSignals(criteria) {
   });
 }
 
-app.use(express.static('public'));
-
-app.get('/', function(request, response) {
-  response.sendFile(__dirname + '/client/index.html');
-});
+app.use(express.static('client'));
 
 app.get('/signals', async function(request, response) {
   const signals = await getAllSignals();
