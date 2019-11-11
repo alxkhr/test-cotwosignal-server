@@ -8,11 +8,13 @@ const db = {
   signals: new Datastore({ filename: '.data/signals', autoload: true }),
 };
 
-// TODO remove if working
-db.signals.remove({}, { multi: true }, (err, numRemoved) => {});
-loadFirstSignal();
+// uncomment to delete existing entries
+// db.signals.remove({}, { multi: true }, (err, numRemoved) => {});
 
-async function loadFirstSignal() {
+fetchSignal();
+setInterval(fetchSignal, 1000 * 60 * 15);
+
+async function fetchSignal() {
   const response = await fetch('https://api.co2signal.com/v1/latest?countryCode=DE', {
     headers: { 'auth-token': process.env.COTWO_API_KEY },
   });
