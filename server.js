@@ -11,8 +11,8 @@ const db = {
 // uncomment to delete existing entries
 // db.signals.remove({}, { multi: true }, (err, numRemoved) => {});
 
-fetchSignal();
-setInterval(fetchSignal, 1000 * 60 * 15);
+// fetchSignal();
+// setInterval(fetchSignal, 1000 * 60 * 15);
 
 async function fetchSignal() {
   const response = await fetch('https://api.co2signal.com/v1/latest?countryCode=DE', {
@@ -53,6 +53,11 @@ app.use(express.static('client'));
 app.get('/signals', async function(request, response) {
   const signals = await getAllSignals();
   response.json(signals);
+});
+
+app.get('/ping', async (request, response) => {
+  await fetchSignal();
+  response.sendStatus(200);
 });
 
 const listener = app.listen(process.env.PORT, function() {
