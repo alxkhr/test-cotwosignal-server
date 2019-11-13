@@ -17,17 +17,36 @@ async function render() {
       }
     });
     canvas.width = window.innerWidth;
-    canvas.height = Object.values(weeks).length * 100;
+    canvas.height = Object.values(weeks).length * 110;
     Object.entries(weeks).forEach(([weekNumber, weekSignals], index) => {
+      const baseY = 110 * (index + 1);
+      ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'].forEach((day, dayIndex) => {
+        if (dayIndex !== 0) {
+          canvasContext.beginPath();
+          canvasContext.moveTo(dayIndex * window.innerWidth / 7, baseY);
+          canvasContext.lineTo(dayIndex * window.innerWidth / 7, baseY - 100);
+          canvasContext.stroke();
+        }
+        if
+      })
       canvasContext.beginPath();
-      const baseY = 100 * (index + 1);
       canvasContext.moveTo(0, baseY);
+      let connected = false;
       weekSignals.forEach((s) => {
-        const posX =
-          (window.innerWidth / 7) * ((s.date.getUTCDay() || 7) - 1) +
-          (window.innerWidth / 168) * s.date.getUTCHours() +
-          (window.innerWidth / 10080) * s.date.getUTCMinutes();
-        canvasContext.lineTo(posX, baseY - s.good);
+        if (s.status === "ok") {
+          const posX =
+            (window.innerWidth / 7) * ((s.date.getUTCDay() || 7) - 1) +
+            (window.innerWidth / 168) * s.date.getUTCHours() +
+            (window.innerWidth / 10080) * s.date.getUTCMinutes();
+          if (connected) {
+            canvasContext.lineTo(posX, baseY - s.good);
+          } else {
+            canvasContext.moveTo(posX, baseY - s.good);
+          }
+          connected = true;
+        } else {
+          connected = false;
+        }
       });
       canvasContext.stroke();
     });
