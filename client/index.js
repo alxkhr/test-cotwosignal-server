@@ -31,12 +31,17 @@ async function render() {
       canvasContext.beginPath();
       canvasContext.moveTo(0, baseY);
       let connected = false;
+      let lastX = 0;
       weekSignals.forEach((s) => {
         if (s.status === 'ok') {
           const posX =
             (window.innerWidth / 7) * ((s.date.getUTCDay() || 7) - 1) +
             (window.innerWidth / 168) * s.date.getUTCHours() +
             (window.innerWidth / 10080) * s.date.getUTCMinutes();
+          if (posX - lastX > 336) {
+            connected = false;
+          }
+          lastX = posX;
           if (connected) {
             canvasContext.lineTo(posX, baseY - s.good);
           } else {
