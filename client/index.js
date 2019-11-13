@@ -23,17 +23,16 @@ async function render() {
       ['mo', 'di', 'mi', 'do', 'fr', 'sa', 'so'].forEach((day, dayIndex) => {
         if (dayIndex !== 0) {
           canvasContext.beginPath();
-          canvasContext.moveTo(dayIndex * window.innerWidth / 7, baseY);
-          canvasContext.lineTo(dayIndex * window.innerWidth / 7, baseY - 100);
+          canvasContext.moveTo((dayIndex * window.innerWidth) / 7, baseY);
+          canvasContext.lineTo((dayIndex * window.innerWidth) / 7, baseY - 100);
           canvasContext.stroke();
         }
-        if
-      })
+      });
       canvasContext.beginPath();
       canvasContext.moveTo(0, baseY);
       let connected = false;
       weekSignals.forEach((s) => {
-        if (s.status === "ok") {
+        if (s.status === 'ok') {
           const posX =
             (window.innerWidth / 7) * ((s.date.getUTCDay() || 7) - 1) +
             (window.innerWidth / 168) * s.date.getUTCHours() +
